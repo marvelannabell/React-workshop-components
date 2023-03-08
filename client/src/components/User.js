@@ -10,7 +10,8 @@ export const User = ({
     updatedAt,
     onInfoClick,
     onEditClick, 
-    onDeleteClick,
+    onDeleteClickModal,
+    onDeleteClickHandler,
     
 }) => {
     return (
@@ -35,7 +36,7 @@ export const User = ({
                         </path>
                     </svg>
                 </button>
-                <button onClick={()=>onDeleteClick(_id)} className="btn delete-btn" title="Delete">
+                <button onClick={()=>onDeleteClickModal(_id,firstName,lastName)} className="btn delete-btn" title="Delete">
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash"
                         className="svg-inline--fa fa-trash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498 512">
                         <path fill="currentColor"

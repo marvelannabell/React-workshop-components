@@ -13,6 +13,7 @@ export const UserDetails = ({
     address,
     onClose
 }) => {
+    console.log(firstName);
     useEffect(() => {
         document.addEventListener('keydown', detectKeyDown, true)
     }, []);

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 export const UserAdd=({
     onClose,
+    userSubmitHandler,
 })=>{
     useEffect(() => {
         document.addEventListener('keydown', detectKeyDown, true)
@@ -28,10 +29,10 @@ export const UserAdd=({
                 </svg>
               </button>
             </header>
-            <form>
+            <form onSubmit={userSubmitHandler}>
               <div className="form-row">
                 <div className="form-group">
-                  <label for="firstName">First name</label>
+                  <label htmlFor="firstName">First name</label>
                   <div className="input-wrapper">
                     <span><i className="fa-solid fa-user"></i></span>
                     <input id="firstName" name="firstName" type="text" />
@@ -54,7 +55,7 @@ export const UserAdd=({
   
               <div className="form-row">
                 <div className="form-group">
-                  <label for="email">Email</label>
+                  <label htmlFor="email">Email</label>
                   <div className="input-wrapper">
                     <span><i className="fa-solid fa-envelope"></i></span>
                     <input id="email" name="email" type="text" />
@@ -62,7 +63,7 @@ export const UserAdd=({
                   <p className="form-error">Email is not valid!</p>
                 </div>
                 <div className="form-group">
-                  <label for="phoneNumber">Phone number</label>
+                  <label htmlFor="phoneNumber">Phone number</label>
                   <div className="input-wrapper">
                     <span><i className="fa-solid fa-phone"></i></span>
                     <input id="phoneNumber" name="phoneNumber" type="text" />
@@ -72,7 +73,7 @@ export const UserAdd=({
               </div>
   
               <div className="form-group long-line">
-                <label for="imageUrl">Image Url</label>
+                <label htmlFor="imageUrl">Image Url</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-image"></i></span>
                   <input id="imageUrl" name="imageUrl" type="text" />
@@ -82,7 +83,7 @@ export const UserAdd=({
   
               <div className="form-row">
                 <div className="form-group">
-                  <label for="country">Country</label>
+                  <label htmlFor="country">Country</label>
                   <div className="input-wrapper">
                     <span><i className="fa-solid fa-map"></i></span>
                     <input id="country" name="country" type="text" />
@@ -105,7 +106,7 @@ export const UserAdd=({
   
               <div className="form-row">
                 <div className="form-group">
-                  <label for="street">Street</label>
+                  <label htmlFor="street">Street</label>
                   <div className="input-wrapper">
                     <span><i className="fa-solid fa-map"></i></span>
                     <input id="street" name="street" type="text" />
@@ -115,7 +116,7 @@ export const UserAdd=({
                   </p>
                 </div>
                 <div className="form-group">
-                  <label for="streetNumber">Street number</label>
+                  <label htmlFor="streetNumber">Street number</label>
                   <div className="input-wrapper">
                     <span><i className="fa-solid fa-house-chimney"></i></span>
                     <input id="streetNumber" name="streetNumber" type="text" />

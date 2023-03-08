@@ -15,12 +15,15 @@ const userActions = {
 
 export const UserList = ({
     users,
+    userSubmitHandler,
+    onDeleteClickHandler,
 }) => {
 
     // const[selectedUser,setSelectedUser]=useState(null);
     // const[userAction, setUserAction] = useState(null);
 
-    const [selectedUserAndUseraction, setSelectedUserAndUserAction] = useState({ selectedUser: null, userAction: null })
+    const [selectedUserAndUseraction, setSelectedUserAndUserAction] = useState({ selectedUser: null, userAction: null });
+    const [showAddUser, setShowAddUser] = useState(false);
 
     const onInfoClick = async (userId) => {
         const user = await getOne(userId)
@@ -57,8 +60,29 @@ export const UserList = ({
         }
     };
 
-    const onDeleteClick = async (userId) => {
+    const onDeleteClik=async(userId)=>{
+        onDeleteClickHandler(userId);
+        setSelectedUserAndUserAction({
+                    selectedUser: null,
+                    userAction: null,
+                });
+
+    }
+    // const onDeleteClickHandler = async (userId) => {
+    //     const user = await remove(userId)
+    //     setSelectedUserAndUserAction({
+    //         selectedUser: null,
+    //         userAction: null,
+    //     });
+     
+      
+    // }
+ 
+    const onDeleteClickModal = async (userId) => {
+    
+    
         const user = await getOne(userId)
+     
         // console.log(user);
         if (user) {
             // setSelectedUser(user);
@@ -72,16 +96,22 @@ export const UserList = ({
         }
     };
     const onAddUser = () => {
-
-
-
         setSelectedUserAndUserAction({
             selectedUser: null,
             userAction: userActions.Add
         });
-
+        setShowAddUser(true)
 
     };
+
+    const onUserSubmitHandlerCloseAddUser = (e) => {
+        userSubmitHandler(e)
+        // setSelectedUserAndUserAction({
+        //     selectedUser: null,
+        //     userAction: null
+        // });
+        setShowAddUser(false)
+    }
 
 
 
@@ -104,12 +134,15 @@ export const UserList = ({
 
             {selectedUserAndUseraction.userAction === userActions.Delete &&
                 <UserDelete {...selectedUserAndUseraction.selectedUser}
-                    onClose={onClose}
+                    onClose={onClose} 
+                    onDeleteClik={onDeleteClik}
                 />
             }
-            {selectedUserAndUseraction.userAction === userActions.Add &&
+            {selectedUserAndUseraction.userAction === userActions.Add && showAddUser &&
                 <UserAdd
                     onClose={onClose}
+                    userSubmitHandler={onUserSubmitHandlerCloseAddUser}
+                // onCloseAddUser={onCloseAddUser}
                 />
             }
 
@@ -240,12 +273,19 @@ export const UserList = ({
                     </thead>
                     <tbody>
                         {/* Table row component  */}
-                        {users.map(x => <User key={x._id} {...x} onInfoClick={onInfoClick} onEditClick={onEditClick} onDeleteClick={onDeleteClick} />)}
+                        {users.map(x =>
+                            <User
+                                key={x._id}
+                                {...x}
+                                onInfoClick={onInfoClick}
+                                onEditClick={onEditClick}
+                                onDeleteClickModal={onDeleteClickModal}
+                                onDeleteClickHandler={onDeleteClickHandler} />)}
 
                     </tbody>
                 </table>
             </div>
-            <button className="btn-add btn" onClick={()=>onAddUser()}>Add new user</button>
+            <button className="btn-add btn" onClick={() => onAddUser()}>Add new user</button>
         </>
     )
 }
