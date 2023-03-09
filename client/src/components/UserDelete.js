@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 
 export const UserDelete = ({
+    _id,
     firstName,
     lastName,
     onClose,
+    onDeleteClik,
 }) => {
-
+console.log(firstName);
     useEffect(() => {
         document.addEventListener('keydown', detectKeyDown, true)
     }, []);
@@ -34,7 +36,7 @@ export const UserDelete = ({
                     </header>
                     <div className="actions">
                         <div id="form-actions">
-                            <button id="action-save" className="btn" type="submit">Delete</button>
+                            <button id="action-save" className="btn" type="submit" onClick={()=>onDeleteClik(_id)}>Delete</button>
                             <button id="action-cancel" className="btn" type="button" onClick={onClose}>
                                 Cancel
                             </button>
