@@ -9,6 +9,17 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [formValues, setFormValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    imageUrl: '',
+    phoneNumber: '',
+    country: '',
+    city: '',
+    street: '',
+    streetNumber: '',
+  })
 
   useEffect(() => {
     getAll()
@@ -26,15 +37,26 @@ function App() {
     e.preventDefault()
     console.log('submit');
     //2.take formData from DOM tree
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
-    console.log(data);
+    // const formData = new FormData(e.currentTarget);
+    // const data = Object.fromEntries(formData);
+    console.log({formValues});
     //3.send ajax request to server
-    const createdUser = await create(data);
+    const createdUser = await create(formValues);
     console.log(createdUser);
 
     //4.If successfull add new user to the server
     setUsers(state => [...state, createdUser])
+    setFormValues({
+      firstName: '',
+      lastName: '',
+      email: '',
+      imageUrl: '',
+      phoneNumber: '',
+      country: '',
+      city: '',
+      street: '',
+      streetNumber: '',
+    })
     // console.log(users);
 
     //5.close dialog
@@ -45,18 +67,30 @@ function App() {
     setUsers(state => state.filter(x => x._id !== userId))
   }
 
-    return (
-      <>
-        <Header />
-        <main className="main">
-          <section className="card users-container">
-            <Search />
-            <UserList users={users} userSubmitHandler={userSubmitHandler} onDeleteClickHandler={onDeleteClickHandler} />
-          </section>
-        </main>
-        <Footer />
-      </>
-    );
+  const formChangeHandler = (e) => {
+    setFormValues(state => ({ ...state, [e.target.name]: e.target.value }))
+
+console.log(formValues);
   }
 
-  export default App;
+  return (
+    <>
+      <Header />
+      <main className="main">
+        <section className="card users-container">
+          <Search />
+          <UserList
+            users={users}
+            userSubmitHandler={userSubmitHandler}
+            onDeleteClickHandler={onDeleteClickHandler}
+            formValues={formValues}
+            formChangeHandler={formChangeHandler}
+          />
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+export default App;

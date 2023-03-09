@@ -17,6 +17,8 @@ export const UserList = ({
     users,
     userSubmitHandler,
     onDeleteClickHandler,
+    formValues,
+    formChangeHandler,
 }) => {
 
     // const[selectedUser,setSelectedUser]=useState(null);
@@ -142,6 +144,8 @@ export const UserList = ({
                 <UserAdd
                     onClose={onClose}
                     userSubmitHandler={onUserSubmitHandlerCloseAddUser}
+                    formValues={formValues}
+                    formChangeHandler={formChangeHandler}
                 // onCloseAddUser={onCloseAddUser}
                 />
             }
