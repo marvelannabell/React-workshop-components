@@ -19,6 +19,9 @@ export const UserList = ({
     onDeleteClickHandler,
     formValues,
     formChangeHandler,
+    formErr,
+    setFormValues,
+    onBlurFormValidete
 }) => {
 
     // const[selectedUser,setSelectedUser]=useState(null);
@@ -44,7 +47,20 @@ export const UserList = ({
 
 
     const onClose = () => {
-        setSelectedUserAndUserAction({ selectedUser: null, userAction: null })
+        setSelectedUserAndUserAction({ selectedUser: null, userAction: null });
+        if (formValues) {
+            setFormValues({
+                firstName: '',
+                lastName: '',
+                email: '',
+                imageUrl: '',
+                phoneNumber: '',
+                country: '',
+                city: '',
+                street: '',
+                streetNumber: '',
+            });
+        }
     }
 
     const onEditClick = async (userId) => {
@@ -62,12 +78,12 @@ export const UserList = ({
         }
     };
 
-    const onDeleteClik=async(userId)=>{
+    const onDeleteClik = async (userId) => {
         onDeleteClickHandler(userId);
         setSelectedUserAndUserAction({
-                    selectedUser: null,
-                    userAction: null,
-                });
+            selectedUser: null,
+            userAction: null,
+        });
 
     }
     // const onDeleteClickHandler = async (userId) => {
@@ -76,15 +92,15 @@ export const UserList = ({
     //         selectedUser: null,
     //         userAction: null,
     //     });
-     
-      
+
+
     // }
- 
+
     const onDeleteClickModal = async (userId) => {
-    
-    
+
+
         const user = await getOne(userId)
-     
+
         // console.log(user);
         if (user) {
             // setSelectedUser(user);
@@ -131,12 +147,16 @@ export const UserList = ({
                 <UserEdit
                     {...selectedUserAndUseraction.selectedUser}
                     onClose={onClose}
+                    formValues={formValues}
+                    formChangeHandler={formChangeHandler}
+                    formErr={formErr}
+                    onBlurFormValidete={onBlurFormValidete}
                 />
             }
 
             {selectedUserAndUseraction.userAction === userActions.Delete &&
                 <UserDelete {...selectedUserAndUseraction.selectedUser}
-                    onClose={onClose} 
+                    onClose={onClose}
                     onDeleteClik={onDeleteClik}
                 />
             }
@@ -146,6 +166,8 @@ export const UserList = ({
                     userSubmitHandler={onUserSubmitHandlerCloseAddUser}
                     formValues={formValues}
                     formChangeHandler={formChangeHandler}
+                    formErr={formErr}
+                    onBlurFormValidete={onBlurFormValidete}
                 // onCloseAddUser={onCloseAddUser}
                 />
             }
