@@ -42,26 +42,15 @@ export const UserAdd = ({
                 <label htmlFor="firstName">First name</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-user"></i></span>
-                  {formErr.firstName?
-                    <input
+                  <input
                       id="firstName"
                       name="firstName"
                       type="text"
                       value={formValues.firstName}
                       onChange={formChangeHandler}
                       onBlur={onBlurFormValidete}
-                      style={inputErrStyle}
-                    /> :
-                    <input
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      value={formValues.firstName}
-                      onChange={formChangeHandler}
-                      onBlur={onBlurFormValidete}
-                      
+                      style={formErr.firstName && inputErrStyle}
                     />
-                  }
                 </div>
 
                 {formErr.firstName &&
