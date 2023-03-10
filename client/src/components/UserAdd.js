@@ -4,7 +4,9 @@ export const UserAdd = ({
   onClose,
   userSubmitHandler,
   formValues,
-  formChangeHandler
+  formChangeHandler,
+  formErr,
+  onBlurFormValidete
 }) => {
   useEffect(() => {
     document.addEventListener('keydown', detectKeyDown, true)
@@ -15,6 +17,13 @@ export const UserAdd = ({
       onClose()
     }
   };
+
+  let inputErrStyle = {}
+  if (formErr) {
+    inputErrStyle = { border: '1px solid red' }
+  } else {
+    inputErrStyle = {}
+  }
   return (
     <div className="overlay">
       <div className="backdrop" onClick={onClose}></div>
@@ -37,16 +46,33 @@ export const UserAdd = ({
                 <label htmlFor="firstName">First name</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-user"></i></span>
-                  <input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    value={formValues.firstName}
-                    onChange={formChangeHandler} />
+                  {formErr.firstName?
+                    <input
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      value={formValues.firstName}
+                      onChange={formChangeHandler}
+                      onBlur={onBlurFormValidete}
+                      style={inputErrStyle}
+                    /> :
+                    <input
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      value={formValues.firstName}
+                      onChange={formChangeHandler}
+                      onBlur={onBlurFormValidete}
+                      
+                    />
+                  }
                 </div>
-                <p className="form-error">
-                  First name should be at least 3 characters long!
-                </p>
+
+                {formErr.firstName &&
+                  <p className="form-error">
+                    {formErr.firstName}
+                    {/* First name should be at least 3 characters long! */}
+                  </p>}
               </div>
               <div className="form-group">
                 <label htmlFor="lastName">Last name</label>
@@ -57,11 +83,16 @@ export const UserAdd = ({
                     name="lastName"
                     type="text"
                     value={formValues.lastName}
-                    onChange={formChangeHandler} />
+                    onChange={formChangeHandler}
+                    onBlur={onBlurFormValidete}
+                  />
                 </div>
-                <p className="form-error">
-                  Last name should be at least 3 characters long!
-                </p>
+                {formErr.lastName &&
+                  <p className="form-error">
+                    {formErr.lastName}
+                    {/* Last name should be at least 3 characters long! */}
+                  </p>}
+
               </div>
             </div>
 
@@ -116,12 +147,12 @@ export const UserAdd = ({
                 <label htmlFor="country">Country</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-map"></i></span>
-                  <input 
-                  id="country" 
-                  name="country" 
-                  type="text" 
-                  value={formValues.country}
-                  onChange={formChangeHandler}
+                  <input
+                    id="country"
+                    name="country"
+                    type="text"
+                    value={formValues.country}
+                    onChange={formChangeHandler}
                   />
                 </div>
                 <p className="form-error">
@@ -132,13 +163,13 @@ export const UserAdd = ({
                 <label for="city">City</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-city"></i></span>
-                  <input 
-                  id="city" 
-                  name="city" 
-                  type="text"
-                  value={formValues.city}
-                  onChange={formChangeHandler}
-                   />
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    value={formValues.city}
+                    onChange={formChangeHandler}
+                  />
                 </div>
                 <p className="form-error">
                   City should be at least 3 characters long!
@@ -151,12 +182,12 @@ export const UserAdd = ({
                 <label htmlFor="street">Street</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-map"></i></span>
-                  <input 
-                  id="street" 
-                  name="street" 
-                  type="text" 
-                  value={formValues.street}
-                  onChange={formChangeHandler}
+                  <input
+                    id="street"
+                    name="street"
+                    type="text"
+                    value={formValues.street}
+                    onChange={formChangeHandler}
                   />
                 </div>
                 <p className="form-error">
@@ -167,12 +198,12 @@ export const UserAdd = ({
                 <label htmlFor="streetNumber">Street number</label>
                 <div className="input-wrapper">
                   <span><i className="fa-solid fa-house-chimney"></i></span>
-                  <input 
-                  id="streetNumber" 
-                  name="streetNumber" 
-                  type="text"
-                  value={formValues.streetNumber}
-                  onChange={formChangeHandler} 
+                  <input
+                    id="streetNumber"
+                    name="streetNumber"
+                    type="text"
+                    value={formValues.streetNumber}
+                    onChange={formChangeHandler}
                   />
                 </div>
                 <p className="form-error">

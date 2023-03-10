@@ -19,6 +19,17 @@ function App() {
     city: '',
     street: '',
     streetNumber: '',
+  });
+  const [formErr, setFormErr] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    imageUrl: '',
+    phoneNumber: '',
+    country: '',
+    city: '',
+    street: '',
+    streetNumber: '',
   })
 
   useEffect(() => {
@@ -39,7 +50,7 @@ function App() {
     //2.take formData from DOM tree
     // const formData = new FormData(e.currentTarget);
     // const data = Object.fromEntries(formData);
-    console.log({formValues});
+    console.log({ formValues });
     //3.send ajax request to server
     const createdUser = await create(formValues);
     console.log(createdUser);
@@ -68,9 +79,42 @@ function App() {
   }
 
   const formChangeHandler = (e) => {
-    setFormValues(state => ({ ...state, [e.target.name]: e.target.value }))
 
-console.log(formValues);
+    setFormValues(state => ({ ...state, [e.target.name]: e.target.value }))
+    console.log(formValues);
+  };
+
+  const onBlurFormValidete = (e) => {
+// // 1st way
+//     const value = e.target.value;
+//     if (e.target.name === 'firstName' && (value.length < 3 || value.length > 20)) {
+//       setFormErr(state => ({ ...state, firstName: 'First name should be between 3 and 20 characters' }))
+//     } else {
+//       setFormErr(state => ({ ...state, firstName: '' }))
+//     }
+//     if (e.target.name === 'lastName' && (value.length < 3 || value.length > 20)) {
+//       setFormErr(state => ({ ...state, lastName: 'Last name should be between 3 and 20 characters' }))
+//     }else{
+//       setFormErr(state => ({ ...state, lastName: '' }))
+//     }
+
+
+// 2nd way
+const value = e.target.value;
+    const erorrs ={} 
+    if (e.target.name === 'firstName' && (value.length < 3 || value.length > 20)) {
+      erorrs.firstName = 'First name should be between 3 and 20 characters'
+    } else {
+      setFormErr(state => ({ ...state, firstName: '' }))
+    }
+    if (e.target.name === 'lastName' && (value.length < 3 || value.length > 20)) {
+      erorrs.lastName = 'Last name should be between 3 and 20 characters'
+    }else{
+      setFormErr(state => ({ ...state, lastName: '' }))
+    }
+
+    setFormErr(erorrs);
+
   }
 
   return (
@@ -85,6 +129,9 @@ console.log(formValues);
             onDeleteClickHandler={onDeleteClickHandler}
             formValues={formValues}
             formChangeHandler={formChangeHandler}
+            formErr={formErr}
+            setFormValues={setFormValues}
+            onBlurFormValidete={onBlurFormValidete}
           />
         </section>
       </main>
