@@ -49,7 +49,7 @@ export const UserAdd = ({
                       value={formValues.firstName}
                       onChange={formChangeHandler}
                       onBlur={onBlurFormValidete}
-                      style={formErr.firstName && inputErrStyle}
+                      style={formErr.firstName? inputErrStyle:{}}
                     />
                 </div>
 
@@ -70,6 +70,7 @@ export const UserAdd = ({
                     value={formValues.lastName}
                     onChange={formChangeHandler}
                     onBlur={onBlurFormValidete}
+                    style={formErr.lastName? inputErrStyle:{}}
                   />
                 </div>
                 {formErr.lastName &&
