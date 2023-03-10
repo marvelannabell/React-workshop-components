@@ -18,12 +18,12 @@ export const UserAdd = ({
     }
   };
 
-  let inputErrStyle = {}
-  if (formErr) {
-    inputErrStyle = { border: '1px solid red' }
-  } else {
-    inputErrStyle = {}
-  }
+  let inputErrStyle = { border: '1px solid red' }
+  // if (formErr) {
+  //   inputErrStyle = { border: '1px solid red' }
+  // } else {
+  //   inputErrStyle = {}
+  // }
   return (
     <div className="overlay">
       <div className="backdrop" onClick={onClose}></div>
